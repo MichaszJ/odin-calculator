@@ -24,7 +24,11 @@ let displayValue = '';
 const displayElement = document.querySelector<HTMLParagraphElement>('.display');
 function updateDisplay(): void {
     if (displayElement != null) {
-        displayElement.innerText = displayValue;
+        if (displayValue == '') {
+            displayElement.innerText = '0';
+        } else {
+            displayElement.innerText = displayValue;
+        }
     }
 }
 
@@ -34,6 +38,16 @@ function appendDisplay(symbol: string): void {
         displayValue += symbol;
     } else {
         displayValue += ` ${symbol}`;
+    }
+
+    updateDisplay();
+}
+
+function backspaceDisplay(): void {
+    if ('0123456789'.includes(displayValue.substring(displayValue.length - 1))) {
+        displayValue = displayValue.substring(0, displayValue.length - 1);
+    } else {
+        displayValue = displayValue.substring(0, displayValue.length - 2);
     }
 
     updateDisplay();
