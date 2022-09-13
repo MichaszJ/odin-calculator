@@ -39,8 +39,9 @@ function updateDisplay() {
 }
 function appendDisplay(symbol) {
     // adding spaces between operators and numbers
-    if ('0123456789'.includes(symbol) || !'+-*/'.includes(displayValue.substring(displayValue.length - 1))) {
-        if ('0123456789'.includes(displayValue.substring(displayValue.length - 1)) && !'+-*/'.includes(symbol)) {
+    const splitArray = displayValue.split(' ');
+    if (('0123456789'.includes(symbol) || !'+-*/'.includes(displayValue.substring(displayValue.length - 1))) && !(symbol == '.' && splitArray[splitArray.length - 1].includes('.'))) {
+        if ('0123456789.'.includes(displayValue.substring(displayValue.length - 1)) && !'+-*/'.includes(symbol)) {
             displayValue += symbol;
         }
         else {
