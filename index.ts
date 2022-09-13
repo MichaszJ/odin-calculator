@@ -23,7 +23,6 @@ function errorDisplay(): void {
 
 function operate(numA: number, numB: number, operator: Function): number {
     if (numB == 0 && operator == divideOperator) {
-        errorDisplay();
         return 0;
     } else {
         return operator(numA, numB);
@@ -86,28 +85,33 @@ function getOperator(operatorSymbol: string) {
 function evaluateDisplay(): void {
     // naive evaluation without order of operations
     let splitArray = displayValue.split(' ');
+    let errorRaised = false;
 
-    if (splitArray.length >= 3) {
-        let numA = Number(splitArray[0]);
-        let operator = getOperator(splitArray[1]);
-        let numB = Number(splitArray[2]);
-        let result = operate(numA, numB, operator);
-
-        splitArray[2] = result.toString();
-        splitArray = splitArray.slice(2);
-
+    if (splitArray.length >= 3 && !'+-*/'.includes(splitArray[splitArray.length - 1])) {
+        let result = 0;
+        
         while (splitArray.length > 1) {
-            numA = Number(splitArray[0]);
-            operator = getOperator(splitArray[1]);
-            numB = Number(splitArray[2]);
-            result = operate(numA, numB, operator);
+            let numA = Number(splitArray[0]);
+            let operator = getOperator(splitArray[1]);
+            let numB = Number(splitArray[2]);
 
+            if (numB == 0 && operator == divideOperator) {
+                errorRaised = true;
+                break;
+            }
+
+            result = operate(numA, numB, operator);
+    
             splitArray[2] = result.toString();
             splitArray = splitArray.slice(2);
         }
 
-        // console.log(operate(numA, numB, operator));
-        displayValue = result.toString();
-        updateDisplay();
+        if (errorRaised) {
+            errorDisplay();
+        } else {
+            displayValue = result.toString();
+            updateDisplay();
+            displayValue = '';
+        }
     }
 }
