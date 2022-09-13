@@ -27,7 +27,8 @@
                     </div>
                     <div class="bottom-row">
                         <button class="key num-key" onclick="appendDisplay('0')">0</button>
-                        <button class="key clear-key" onclick="clearDisplay()">Clear</button>
+                        <button class="key num-key" onclick="appendDisplay('.')">.</button>
+                        <button class="key num-key" onclick="backspaceDisplay()">Back</button>
                     </div>
                 </div>
                 <div class="operator-column">
@@ -38,7 +39,7 @@
                 </div>
                 <div class="operator-column">
                     <button class="key operator-key misc-key" onclick="evaluateDisplay()">=</button>
-                    <button class="key operator-key misc-key" onclick="backspaceDisplay()">back</button>
+                    <button class="key operator-key misc-key" onclick="clearDisplay()">Clear</button>
             </div>
         </div>
     </body>
