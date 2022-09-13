@@ -105,3 +105,15 @@ function evaluateDisplay() {
         }
     }
 }
+document.body.addEventListener('keydown', (event) => {
+    console.log(event.key);
+    if ('0123456789.+-*/'.includes(event.key)) {
+        appendDisplay(event.key);
+    }
+    else if (event.key == '=') {
+        evaluateDisplay();
+    }
+    else if (event.key == 'Backspace') {
+        backspaceDisplay();
+    }
+});
